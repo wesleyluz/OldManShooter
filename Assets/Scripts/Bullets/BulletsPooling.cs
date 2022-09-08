@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 public class BulletsPooling : MonoBehaviour
 {
 
+    [Inject] private IInstantiator m_instantiator;
 
     [SerializeField]
     private GameObject bullet;
@@ -24,7 +26,13 @@ public class BulletsPooling : MonoBehaviour
             BulletsFabric();
         }
     }
-
+    private void BulletsFabric() 
+    {
+        GameObject shell = m_instantiator.InstantiatePrefab(bullet);
+        shell.transform.parent = transform;
+        shell.SetActive(false);
+        _inPool.Add(shell);
+    }
     public GameObject GetBullet() 
     {
         int totalOnPool = _inPool.Count;
@@ -45,6 +53,7 @@ public class BulletsPooling : MonoBehaviour
 
     public void ReturnBullet(GameObject bullet) 
     {
+        Debug.Assert(_outPool.Contains(bullet));
         bullet.SetActive(false);
         _outPool.Remove(bullet);
         _inPool.Add(bullet);
@@ -52,13 +61,7 @@ public class BulletsPooling : MonoBehaviour
 
 
 
-    private void BulletsFabric() 
-    {
-        GameObject shell = Instantiate(bullet);
-        shell.transform.parent = transform;
-        shell.SetActive(false);
-        _inPool.Add(shell);
-    }
+   
 
 
 

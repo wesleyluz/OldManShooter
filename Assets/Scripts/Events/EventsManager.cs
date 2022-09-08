@@ -4,15 +4,18 @@ using System;
 public class EventsManager : MonoBehaviour
 {
     
-    public event Action <float> OnBulletHit;
+    public event Action <float,bool,int> OnBulletHit;
+    public event Action<int> Shooted;
+
     
-    public void BulletHit(float damage) 
+    public void BulletHit(float damage, bool player, int hited) 
     {
         if(OnBulletHit != null) 
         {
-            OnBulletHit(damage);
+            OnBulletHit(damage,player,hited);
         }
     }
+    
 
 
 
