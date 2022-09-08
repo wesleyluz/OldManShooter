@@ -57,13 +57,15 @@
     <Compile Include="Assets\Scripts\Bullets\BulletsPooling.cs" />
     <Compile Include="Assets\Scripts\Installers\PoolingInstaller.cs" />
     <Compile Include="Assets\Scripts\Characters\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Bullets\BulletControl.cs" />
     <Compile Include="Assets\Scripts\Characters\Player.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Installers\EventsInstaller.cs" />
     <Compile Include="Assets\Scripts\Characters\CharacterEntity.cs" />
     <Compile Include="Assets\Scripts\Events\EventsManager.cs" />
-    <Compile Include="Assets\Scripts\Bullets\BulletControl.cs" />
+    <Compile Include="Assets\Scripts\Installers\PlayerInstaller.cs" />
+    <Compile Include="Assets\Scripts\GameMaster.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

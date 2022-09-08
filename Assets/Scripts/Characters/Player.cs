@@ -5,13 +5,9 @@ using Zenject;
 public class Player : CharacterEntity
 {
     [Inject] private EventsManager _events;
-    
-    [SerializeField]
-    private Transform pivot;    
-
+     
     private GameController _playerControl;
     private Camera _mainCamera;
-
 
 
     private void Awake()
@@ -33,6 +29,7 @@ public class Player : CharacterEntity
     {
 
         base.InicialieStatus();
+        Tag = "Player";
         _mainCamera = Camera.main;
         //Events subscribe
         _events.OnBulletHit += TakeDamage;
@@ -44,7 +41,7 @@ public class Player : CharacterEntity
     private void Update()
     {
         Move();
-        Aim();
+        TrackAim();
         
     }
 
@@ -55,25 +52,21 @@ public class Player : CharacterEntity
         Vector3 movement = _playerControl.Player.Move.ReadValue<Vector2>() * base.CharacterVelocity;
         transform.position += movement * Time.deltaTime;
     }
-    
-    public void Aim() 
+
+    public void TrackAim()
     {
         Vector2 mousePosition = _playerControl.Player.Aim.ReadValue<Vector2>();
         Vector3 mouseScreenPosition = new Vector3(mousePosition.x, mousePosition.y, _mainCamera.orthographicSize);
-        Vector3 mouseWorldPosition  = _mainCamera.ScreenToWorldPoint(mouseScreenPosition);
-        Vector3 targetDirection     = mouseWorldPosition - transform.position;
-        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
-        pivot.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+        Vector3 mouseWorldPosition = _mainCamera.ScreenToWorldPoint(mouseScreenPosition);
+        Vector3 targetDirection = mouseWorldPosition - transform.position;
+        Aim(targetDirection);
     }
    
-    public override void TakeDamage(float damage, bool player, int hitlayer)
+    public override void TakeDamage(float damage, bool player, int hitlayer, GameObject whoshited)
     {   
         if(player)
-            base.TakeDamage(damage, player,hitlayer);
+            base.TakeDamage(damage, player,hitlayer,whoshited);
     }
-    public override void Die()
-    {
-        
-    }
+   
 
 }

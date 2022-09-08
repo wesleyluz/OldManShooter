@@ -13,7 +13,7 @@ public class BulletControl : MonoBehaviour
 
     private float damage = 20f;
 
-    public int whosShooting;
+    public GameObject whosShooting;
     private void OnEnable()
     {
         StartCoroutine(ReturnToPool());
@@ -35,14 +35,15 @@ public class BulletControl : MonoBehaviour
     private void OnTriggerEnter(Collider collision)
     {
         string tag = collision.tag;
-        _bulletPooling.ReturnBullet(gameObject);
+        if(tag != "Range" && whosShooting.layer != collision.gameObject.layer)
+            _bulletPooling.ReturnBullet(gameObject);
         switch (tag) 
         {
             case "Player" :
-                _eventsManager.BulletHit(damage, true, whosShooting);
+                _eventsManager.BulletHit(damage, true, whosShooting.layer, collision.gameObject);
                 return;
             case "Enemy":
-                _eventsManager.BulletHit(damage, false,whosShooting);
+                _eventsManager.BulletHit(damage, false,whosShooting.layer, collision.gameObject);
                 return;
         }
         
