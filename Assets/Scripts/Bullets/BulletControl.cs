@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +9,8 @@ public class BulletControl : MonoBehaviour
 
     [SerializeField]
     private float speed;
-
+    [SerializeField]
+    private float timeToreturn;
     private float damage = 20f;
 
     public GameObject whosShooting;
@@ -26,7 +26,7 @@ public class BulletControl : MonoBehaviour
 
     IEnumerator ReturnToPool() 
     {
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSecondsRealtime(timeToreturn);
         //Debug.Log(gameObject);
         _bulletPooling.ReturnBullet(gameObject);
 

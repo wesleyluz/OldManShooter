@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 public class Enemy : CharacterEntity
@@ -33,6 +32,7 @@ public class Enemy : CharacterEntity
         _inRange = false;
         CanShoot = true;
         CurrentHealth = MaxHealth;
+        
 
     }
     public override void TakeDamage(float damage, bool player, int hitlayer, GameObject whoshited)
@@ -48,6 +48,7 @@ public class Enemy : CharacterEntity
             Vector3 targetDirection = playerPosition - transform.position;
             Aim(targetDirection);
             Shoot();
+            Animator.SetBool("Walking", false);
         }
         else 
         {
@@ -60,6 +61,7 @@ public class Enemy : CharacterEntity
     {
 
         transform.position = Vector3.MoveTowards(transform.position, _playerTransform.position, base.CharacterVelocity * Time.deltaTime);
+        Animator.SetBool("Walking", true);
 
     }
     private void OnTriggerEnter(Collider other)

@@ -13,13 +13,14 @@ GameObject:
   - component: {fileID: 7676966152186992793}
   - component: {fileID: 7676966152186992774}
   - component: {fileID: 7676966152186992775}
+  - component: {fileID: 7607110544587668590}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7676966152186992795
 Transform:
   m_ObjectHideFlags: 0
@@ -134,8 +135,28 @@ MonoBehaviour:
   shootDirection: {fileID: 7676966153381198450}
   pivot: {fileID: 7676966153244817905}
   _currentHealth: 0
+  Animator: {fileID: 7607110544587668590}
   _playerTransform: {fileID: 0}
   _inRange: 0
+--- !u!95 &7607110544587668590
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7676966152186992794}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ade3746d188f5bc46a4a74f50e0095bd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7676966153146972441
 GameObject:
   m_ObjectHideFlags: 0

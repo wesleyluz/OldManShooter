@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  whosShooting: 0
+  timeToreturn: 2
+  whosShooting: {fileID: 0}
 --- !u!65 &-2134629956717792564
 BoxCollider:
   m_ObjectHideFlags: 0

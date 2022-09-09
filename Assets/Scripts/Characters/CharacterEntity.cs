@@ -25,28 +25,40 @@ public class CharacterEntity : MonoBehaviour
     [SerializeField]
     private Transform pivot;
 
+    //[SerializeField]
+    //private Slider healthBar;
+
+    
+
     // Variáveis privadas
     private bool _dead;
     [SerializeField]
     private float _currentHealth;
     private bool _canShoot;
     private int _layerMask;
+    private bool _walking;
+
 
     public string Tag { get; set; }
     //Acesso público
     public float CharacterVelocity => characterVelocity;
     public bool Dead => _dead;
     public float MaxHealth => maxHealth;
-    public float CurrentHealth { set { _currentHealth = value; } }
+    public float CurrentHealth { set { _currentHealth = value; } get { return _currentHealth; } }
     
     public bool CanShoot {set { _canShoot = value; } }
 
+    public Animator Animator;
+
     public virtual void  InicialieStatus()
     {
+        _walking = false;
         _dead = false;
         _canShoot = true;
         _currentHealth = maxHealth;
         _layerMask = gameObject.layer;
+       
+        
        
     }
     public virtual void TakeDamage(float damage, bool player,int hitlayer, GameObject whoshited) 
@@ -55,6 +67,7 @@ public class CharacterEntity : MonoBehaviour
         if (hitlayer != _layerMask && whoshited == this.gameObject)
         {
             _currentHealth -= damage;
+            
         }
         if(_currentHealth <= 0)
         {
@@ -74,12 +87,13 @@ public class CharacterEntity : MonoBehaviour
 
     }
 
-    //public virtual void CureLife() 
-    //{
+    public virtual void CureLife()
+    {
+        if (_currentHealth < maxHealth) { _currentHealth += 10; }
+        
+    }
 
-    //}
 
-   
 
     public virtual void Shoot() 
     {

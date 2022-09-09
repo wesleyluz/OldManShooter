@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using UnityEngine.UI;
 public class Player : CharacterEntity
 {
     [Inject] private EventsManager _events;
-     
+
+    [SerializeField]
+    private Slider HealthBarFill;
+
     private GameController _playerControl;
     private Camera _mainCamera;
 
@@ -29,10 +31,13 @@ public class Player : CharacterEntity
     {
 
         base.InicialieStatus();
+        HealthBarFill.maxValue = MaxHealth;
+        HealthBarFill.value = CurrentHealth;
         Tag = "Player";
         _mainCamera = Camera.main;
         //Events subscribe
         _events.OnBulletHit += TakeDamage;
+        _events.OnKill += CureLife;
             //Input Events
         _playerControl.Player.Shoot.performed += _ => Shoot();
 
@@ -51,6 +56,14 @@ public class Player : CharacterEntity
     {
         Vector3 movement = _playerControl.Player.Move.ReadValue<Vector2>() * base.CharacterVelocity;
         transform.position += movement * Time.deltaTime;
+        if (movement != Vector3.zero)
+        {
+            Animator.SetBool("Walking", true);
+        }
+        else
+        {
+            Animator.SetBool("Walking", false);
+        }
     }
 
     public void TrackAim()
@@ -63,9 +76,14 @@ public class Player : CharacterEntity
     }
    
     public override void TakeDamage(float damage, bool player, int hitlayer, GameObject whoshited)
-    {   
-        if(player)
-            base.TakeDamage(damage, player,hitlayer,whoshited);
+    {
+        if (player && CurrentHealth>=0)
+        {
+            base.TakeDamage(damage, player, hitlayer, whoshited);
+            HealthBarFill.value -= damage;
+
+        }
+
     }
    
 
