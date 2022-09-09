@@ -3,6 +3,8 @@ using Zenject;
 
 public class PoolingInstaller : MonoInstaller
 {
+
+    // Código responsável por gerar um instalador apartir do script referenciado
     [SerializeField]
     private BulletsPooling poolingInstaller;
 

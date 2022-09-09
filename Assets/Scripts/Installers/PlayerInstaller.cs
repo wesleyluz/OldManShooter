@@ -5,6 +5,8 @@ using Zenject;
 
 public class PlayerInstaller : MonoInstaller
 {
+
+    // Código responsável por gerar um instalador apartir do script referenciado
     [SerializeField]
     private Player playerInstall;
 
